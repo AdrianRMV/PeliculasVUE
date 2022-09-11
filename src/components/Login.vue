@@ -4,7 +4,6 @@ export default {
         return {
             username_login: '',
             password_login: '',
-            datos: null,
         };
     },
     methods: {
@@ -27,15 +26,13 @@ export default {
             axios(config)
                 .then(function (response) {
                     if (response.data.success) {
-                        // this.$swal('Hello Vue world!!!');
+                        window.location.href = '../../page_prinicipal.html';
                     }
                 })
                 .catch(function (error) {
                     console.log(error);
                     console.log('Datos incorrectos');
                 });
-
-            this.$swal('Hello Vue world!!!');
         },
     },
     mounted() {},
@@ -74,7 +71,6 @@ export default {
             />
         </div>
     </div>
-    <p>{{ datos }}</p>
 </template>
 
 <style scoped>
