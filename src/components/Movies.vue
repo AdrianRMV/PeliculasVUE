@@ -8,29 +8,27 @@ export default {
     },
     methods: {},
     mounted() {
-        var config = {
-            method: 'get',
-            url: 'https://api.themoviedb.org/3/movie/popular?api_key=1ec227d026a02bc585507b3d8387bd6d&language=es-MX&page=1',
-            headers: {},
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow',
         };
 
-        axios(config)
-            .then(function (response) {
-                // movies = response.data;
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        fetch(
+            'https://api.themoviedb.org/3/movie/popular?api_key=1ec227d026a02bc585507b3d8387bd6d&language=es-MX&page=1',
+            requestOptions
+        )
+            .then((response) => response.json())
+            .then((result) => this.movies = result)
+            .catch((error) => console.log('error', error));
     },
 };
 </script>
 
 <template>
-    <!-- <ul v-for="u in movies">
-        <li>{{u}}</li>
-    </ul> -->
-
-    <p>{{apiKey}}</p>
+    <ul v-for="movie in movies">
+        <li>{{movie}}</li>
+    </ul>
+    <p>{{ apiKey }}</p>
 </template>
 
 <style scoped></style>
