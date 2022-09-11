@@ -3,7 +3,8 @@ export default {
     data() {
         return {
             movies: null,
-            apiKey: '1ec227d026a02bc585507b3d8387bd6d', //v3 auth
+            apiKey: '1ec227d026a02bc585507b3d8387bd6d',
+            imgRoute: 'https://image.tmdb.org/t/p/w500/', //v3 auth
         };
     },
     methods: {},
@@ -18,7 +19,7 @@ export default {
             requestOptions
         )
             .then((response) => response.json())
-            .then((result) => this.movies = result)
+            .then((resultado) => (this.movies = resultado.results))
             .catch((error) => console.log('error', error));
     },
 };
@@ -26,9 +27,33 @@ export default {
 
 <template>
     <ul v-for="movie in movies">
-        <li>{{movie}}</li>
+        <li>{{ movie }}</li>
     </ul>
-    <p>{{ apiKey }}</p>
+
+    <div class="movie-card" v-for="movie in movies">
+        <div class="movie-card-image">
+            <img v-bind:src="imgRoute + movie.poster_path" alt="" />
+        </div>
+        <div class="movie-info-preview">
+            <h2>{{ movie.title }}</h2>
+            <p>{{ movie.release_date }}</p>
+            <p>{{ movie.vote_average }}</p>
+        </div>
+    </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.movie-card {
+    display: flex;
+    flex-direction: column;
+    width: min-content;
+}
+.movie-card-image {
+    position: relative;
+}
+
+.movie-card-image img{
+    position: relative;
+    border-radius: 32px;
+}
+</style>
