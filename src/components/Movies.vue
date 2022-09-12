@@ -9,7 +9,11 @@ export default {
             imgRoute: 'https://image.tmdb.org/t/p/w500/', //v3 auth
         };
     },
-    methods: {},
+    methods: {
+        moreInfo (){
+            console.log("Hola")
+        }
+    },
     mounted() {
         var requestOptions = {
             method: 'GET',
@@ -60,7 +64,13 @@ export default {
 </script>
 
 <template>
-    <div class="block"></div>
+    <header class="block">
+        <img
+            src="../../src/images/samurai.png"
+            alt="Logo Samurai"
+            class="Logo"
+        />
+    </header>
 
     <section class="container">
         <div
@@ -86,7 +96,7 @@ export default {
                     </div>
                 </div>
                 <div class="carousel-item" v-for="movie in movies">
-                    <div class="card">
+                    <div class="card bg-secondary bg-gradient">
                         <div class="img-wrapper">
                             <img
                                 v-bind:src="imgRoute + movie.poster_path"
@@ -94,12 +104,12 @@ export default {
                                 class="d-block w-100"
                             />
                         </div>
-                        <div class="card-body">
+                        <div class="card-body bg-secondary bg-gradient">
                             <h5 class="card-title">{{ movie.title }}</h5>
                             <p class="card-text">
                                 {{ movie.release_date }}
                             </p>
-                            <a href="#" class="btn btn-primary">Leer mas</a>
+                            <a @click="moreInfo" class="btn btn-primary">Leer mas</a>
                         </div>
                     </div>
                 </div>
@@ -133,60 +143,19 @@ export default {
 </template>
 
 <style lang="scss">
-.container {
-    margin-top: 168px;
-}
-
-.carousel-inner {
-    padding: 1em;
-}
-.card {
-    margin: 0 0.5em;
-    box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
-    border: none;
-}
-.carousel-control-prev,
-.carousel-control-next {
-    background-color: #e1e1e1;
-    width: 6vh;
-    height: 6vh;
-    border-radius: 50%;
-    top: 50%;
-    transform: translateY(-50%);
-}
-@media (min-width: 768px) {
-    .carousel-item {
-        margin-right: 0;
-        flex: 0 0 calc(100% / 2.9999);
-        display: block;
-    }
-    .carousel-inner {
-        display: flex;
-    }
-}
-.card .img-wrapper {
-    max-width: 100%;
-    height: 13em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.card img {
-    max-height: 100%;
-}
-@media (max-width: 767px) {
-    .card .img-wrapper {
-        height: 17em;
-    }
-}
-
-// Header animations
 body {
     margin: 0;
     padding: 0;
     background-color: #22272e;
 }
+.Logo {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-58%);
+}
 
+// Header animations
 .block {
     position: relative;
     margin: -50px auto 0;
@@ -235,5 +204,70 @@ body {
 
 .block:after {
     filter: blur(50px);
+}
+
+.container {
+    margin-top: 168px;
+}
+
+.card {
+    margin: 0 1em;
+    box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+    border: none;
+    height: 400px;
+}
+.carousel-control-prev,
+.carousel-control-next {
+    background-color: #e1e1e1;
+    width: 6vh;
+    height: 6vh;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+@media (min-width: 768px) {
+    .carousel-item {
+        margin-right: 0;
+        flex: 0 0 25%;
+        display: block;
+    }
+    .carousel-inner {
+        display: flex;
+    }
+}
+.card .img-wrapper {
+    max-width: 100%;
+    height: 13em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card img {
+    max-height: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+@media (max-width: 767px) {
+    .card .img-wrapper {
+        height: 17em;
+    }
+}
+
+.card-body {
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h5 {
+        font-size: 1em;
+    }
+    p {
+        font-size: 0.7em;
+    }
+    a {
+    }
 }
 </style>
