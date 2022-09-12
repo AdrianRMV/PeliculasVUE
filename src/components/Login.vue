@@ -46,7 +46,7 @@ export default {
                 <form v-on:submit.prevent class="inputs-container">
                     <h1 class="login-title">Login</h1>
                     <input
-                        type="email"
+                        type="text"
                         placeholder="Usuario"
                         id="email"
                         required

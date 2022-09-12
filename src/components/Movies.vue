@@ -10,8 +10,12 @@ export default {
         };
     },
     methods: {
-        moreInfo (){
-            console.log("Hola")
+        moreInfo (movie){
+            let pelicula = {
+                id_pelicula: movie.id,
+            }
+            localStorage.setItem('movie', JSON.stringify(pelicula));
+            // window.location.href = ''
         }
     },
     mounted() {
@@ -109,7 +113,7 @@ export default {
                             <p class="card-text">
                                 {{ movie.release_date }}
                             </p>
-                            <a @click="moreInfo" class="btn btn-primary">Leer mas</a>
+                            <a @click="moreInfo(movie)" class="btn btn-dark">Leer mas</a>
                         </div>
                     </div>
                 </div>
@@ -208,6 +212,7 @@ body {
 
 .container {
     margin-top: 168px;
+    padding-bottom: 140px;
 }
 
 .card {
@@ -246,6 +251,7 @@ body {
     max-height: 100%;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    image-rendering: pixelated;
 }
 @media (max-width: 767px) {
     .card .img-wrapper {
