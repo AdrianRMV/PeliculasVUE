@@ -69,11 +69,13 @@ export default {
 
 <template>
     <header class="block">
-        <img
-            src="../../src/images/samurai.png"
-            alt="Logo Samurai"
-            class="Logo"
-        />
+        <a href="/page_prinicipal.html" title="Home page">
+            <img
+                src="../../src/images/samurai.png"
+                alt="Logo Samurai"
+                class="Logo"
+            />
+        </a>
     </header>
 
     <section class="container">
@@ -191,7 +193,7 @@ body {
     width: calc(100% + 4px);
     height: calc(100% + 4px);
     z-index: -1;
-    animation: steam 20s linear infinite;
+    animation: steam 30s linear infinite;
 }
 
 @keyframes steam {
@@ -249,8 +251,8 @@ body {
 }
 .card img {
     max-height: 100%;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     image-rendering: pixelated;
 }
 @media (max-width: 767px) {
@@ -266,12 +268,15 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    color: #fff;
 
     h5 {
         font-size: 1em;
+        font-weight: bold;
     }
     p {
         font-size: 0.7em;
+        font-style: italic;
     }
     a {
     }
