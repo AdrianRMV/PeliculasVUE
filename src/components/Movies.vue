@@ -14,8 +14,8 @@ export default {
             let pelicula = {
                 id_pelicula: movie.id,
             }
-            localStorage.setItem('movie', JSON.stringify(pelicula));
-            // window.location.href = ''
+            localStorage.setItem('movie', JSON.stringify(pelicula.id_pelicula));
+            window.location.href = '../../pelicula_individual.html';
         }
     },
     mounted() {
