@@ -18,8 +18,7 @@ export default {
                 vote_average: '',
             },
             movie_credits: {
-                cast: {},
-                crew: {},
+                cast: null,
             },
         };
     },
@@ -59,21 +58,49 @@ export default {
                 )
             )
             .catch((error) => console.log('error', error));
-    },
-    beforeMounted() {
+
         // Get para obtener elenco de la pelicula por su ID
+
         fetch(
             `https://api.themoviedb.org/3/movie/${this.movie_id}/credits?api_key=${this.apiKey}&language=es-MX`,
             requestOptions
         )
             .then((response) => response.json())
-            .then(
-                (resultado) => (
-                    (this.movie_credits.cast = resultado.cast),
-                    (this.movie_credits.crew = resultado.crew)
-                )
-            )
+            .then((resultado) => (this.movie_credits.cast = resultado.cast))
             .catch((error) => console.log('error', error));
+
+        // =================================================================================================================
+        // Cast scripts
+        // =================================================================================================================
+        var multipleCardCarousel = document.querySelector(
+            '#carouselExampleControls'
+        );
+        if (window.matchMedia('(min-width: 768px)').matches) {
+            var cardWidth = $('.carousel-item').width();
+            var scrollPosition = 0;
+            $('#carouselExampleControls .carousel-control-next').on(
+                'click',
+                function () {
+                    scrollPosition += cardWidth;
+                    $('.carousel-inner').animate(
+                        { scrollLeft: scrollPosition },
+                        600
+                    );
+                }
+            );
+            $('#carouselExampleControls .carousel-control-prev').on(
+                'click',
+                function () {
+                    scrollPosition -= cardWidth;
+                    $('.carousel-inner').animate(
+                        { scrollLeft: scrollPosition },
+                        600
+                    );
+                }
+            );
+        } else {
+            $(multipleCardCarousel).addClass('slide');
+        }
     },
 };
 </script>
@@ -108,7 +135,6 @@ export default {
                 </div>
                 <span>Puntuacion por usuarios</span>
                 <p class="tagline">{{ movie_total_info.tagline }}</p>
-                <span>{{ movie_credits.cast[0].name }}</span>
                 <h2>Resumen</h2>
                 <p class="overview">{{ movie_total_info.overview }}</p>
             </div>
@@ -122,7 +148,86 @@ export default {
             </div>
         </div>
         <div class="second-row">
-            <button @click="id">Hola</button>
+            <section class="container cast-container">
+                <div
+                    id="carouselExampleControls"
+                    class="carousel"
+                    data-bs-ride="carousel"
+                >
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" style="display: none">
+                            <div class="card">
+                                <div class="img-wrapper">
+                                    <img
+                                        src="..."
+                                        class="d-block w-100"
+                                        alt="..."
+                                    />
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title 1</h5>
+                                    <p class="card-text">
+                                        Some quick example text to build on the
+                                        card title and make up the bulk of the
+                                        card's content.
+                                    </p>
+                                    <a href="#" class="btn btn-primary"
+                                        >Go somewhere</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="carousel-item"
+                            v-for="actor in movie_credits.cast"
+                        >
+                            <div class="card bg-secondary bg-gradient">
+                                <div class="img-wrapper">
+                                    <img
+                                        v-bind:src="
+                                            imgRoute + actor.profile_path
+                                        "
+                                        alt="Actor Image"
+                                        class="d-block w-100"
+                                    />
+                                </div>
+                                <div class="card-body bg-secondary bg-gradient">
+                                    <h5 class="card-title">
+                                        {{ actor.name }}
+                                    </h5>
+                                    <p class="card-text">
+                                        {{ actor.character }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        class="carousel-control-prev"
+                        type="button"
+                        data-bs-target="#carouselExampleControls"
+                        data-bs-slide="prev"
+                    >
+                        <span
+                            class="carousel-control-prev-icon"
+                            aria-hidden="true"
+                        ></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button
+                        class="carousel-control-next"
+                        type="button"
+                        data-bs-target="#carouselExampleControls"
+                        data-bs-slide="next"
+                    >
+                        <span
+                            class="carousel-control-next-icon"
+                            aria-hidden="true"
+                        ></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </section>
         </div>
     </div>
 </template>
@@ -192,22 +297,25 @@ body {
 }
 
 .container {
-    margin-top: 100px;
+    padding: 100px 0px;
 }
 
 .first-row {
     position: relative;
     z-index: 0;
-    border-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     height: 470px;
     width: 100%;
     img {
         height: 100%;
-        border-radius: 14px;
+        border-top-left-radius: 14px;
+        border-top-right-radius: 14px;
     }
     &::before {
         content: '';
-        border-radius: 10px;
+        border-top-left-radius: 14px;
+        border-top-right-radius: 14px;
         position: absolute;
         z-index: 0;
         inset: 0;
@@ -260,6 +368,87 @@ body {
     h2 {
         font-size: 1.4em;
         font-weight: bold;
+    }
+}
+
+.cast-container {
+    margin-top: 0px;
+    padding-top: 40px;
+    padding-bottom: 140px;
+    background-color: #9b9999;
+}
+
+.carousel-inner {
+    padding: 50px 0;
+}
+
+.card {
+    margin: 0 1em;
+    box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+    border: none;
+    height: 350px;
+}
+
+.carousel-item {
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+.carousel-control-prev,
+.carousel-control-next {
+    background-color: #e1e1e1;
+    width: 6vh;
+    height: 6vh;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+@media (min-width: 768px) {
+    .carousel-item {
+        margin-right: 0;
+        flex: 0 0 18%;
+        display: block;
+    }
+    .carousel-inner {
+        display: flex;
+    }
+}
+.card .img-wrapper {
+    max-width: 100%;
+    height: 13em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card img {
+    max-height: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+@media (max-width: 767px) {
+    .card .img-wrapper {
+        height: 17em;
+    }
+}
+
+.card-body {
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+
+    h5 {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    p {
+        font-size: 0.7em;
+        font-style: italic;
     }
 }
 </style>

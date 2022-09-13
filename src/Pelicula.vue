@@ -3,5 +3,7 @@
 </script>
 
 <template>
-    <Single_movie />
+    <Suspense>
+        <Single_movie />
+    </Suspense>
 </template>
