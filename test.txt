@@ -1,1 +1,0 @@
-https://api.themoviedb.org/3/movie/top_rated?api_key=1ec227d026a02bc585507b3d8387bd6d&language=es-MX&page=1
