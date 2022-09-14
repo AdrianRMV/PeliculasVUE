@@ -13,6 +13,8 @@ export default {
             data.append('password', `${this.password_login}`);
             data.append('request_token', '');
 
+            const _this = this;
+
             var config = {
                 method: 'post',
                 url: 'https://api.themoviedb.org/3/authentication/token/validate_with_login',
@@ -30,8 +32,12 @@ export default {
                     }
                 })
                 .catch(function (error) {
+                    _this.$swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Usuario o Contraseña incorrecta',
+                    });
                     console.log(error);
-                    console.log('Datos incorrectos');
                 });
         },
     },
