@@ -6,17 +6,19 @@ export default {
         return {
             movies: null,
             apiKey: '1ec227d026a02bc585507b3d8387bd6d',
-            imgRoute: 'https://image.tmdb.org/t/p/w500/', //v3 auth
+            imgRoute: 'https://image.tmdb.org/t/p/w500/',
+            top_movies: null,
+            lastest_movies: null,
         };
     },
     methods: {
-        moreInfo (movie){
+        moreInfo(movie) {
             let pelicula = {
                 id_pelicula: movie.id,
-            }
+            };
             localStorage.setItem('movie', JSON.stringify(pelicula.id_pelicula));
             window.location.href = '../../pelicula_individual.html';
-        }
+        },
     },
     mounted() {
         var requestOptions = {
@@ -78,6 +80,8 @@ export default {
         </a>
     </header>
 
+    <h1 class="titles">Lo más popular</h1>
+
     <section class="container">
         <div
             id="carouselExampleControls"
@@ -115,7 +119,9 @@ export default {
                             <p class="card-text">
                                 {{ movie.release_date }}
                             </p>
-                            <a @click="moreInfo(movie)" class="btn btn-dark">Leer mas</a>
+                            <a @click="moreInfo(movie)" class="btn btn-dark"
+                                >Leer mas</a
+                            >
                         </div>
                     </div>
                 </div>
@@ -146,14 +152,26 @@ export default {
             </button>
         </div>
     </section>
+
+
 </template>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
 body {
     margin: 0;
     padding: 0;
     background-color: #22272e;
 }
+
+.titles {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    color: #fff;
+    margin: 115px auto 0 auto;
+    width: max-content;
+}
+
 .Logo {
     position: absolute;
     top: 30px;
@@ -213,7 +231,7 @@ body {
 }
 
 .container {
-    margin-top: 168px;
+    margin-top: 40px;
     padding-bottom: 140px;
 }
 
@@ -273,12 +291,15 @@ body {
     h5 {
         font-size: 1em;
         font-weight: bold;
+        font-family: 'Open Sans', sans-serif;
     }
     p {
         font-size: 0.7em;
         font-style: italic;
+        font-family: 'Open Sans', sans-serif;
     }
     a {
+        font-family: 'Open Sans', sans-serif;
     }
 }
 </style>
