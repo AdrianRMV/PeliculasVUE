@@ -8,7 +8,6 @@ export default {
             apiKey: '1ec227d026a02bc585507b3d8387bd6d',
             imgRoute: 'https://image.tmdb.org/t/p/w500/',
             top_movies: null,
-            lastest_movies: null,
         };
     },
     methods: {
