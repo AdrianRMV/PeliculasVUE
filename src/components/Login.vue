@@ -15,17 +15,18 @@ export default {
 
             const _this = this;
 
-            var config = {
-                method: 'post',
+            const options = {
+                method: 'POST',
                 url: 'https://api.themoviedb.org/3/authentication/token/validate_with_login',
                 headers: {
+                    accept: 'application/json',
+                    'content-type': 'application/json',
                     Authorization:
                         'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZWMyMjdkMDI2YTAyYmM1ODU1MDdiM2Q4Mzg3YmQ2ZCIsInN1YiI6IjYzMWQxMDhjYmQzMjA5MDA3YWQwODM2YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Uds2RHtfQ3hu0hxPviDimJZyHVVZWNRUR0uCQ-qicp0',
                 },
-                data,
             };
 
-            axios(config)
+            axios(options)
                 .then(function (response) {
                     if (response.data.success) {
                         window.location.href = '../../page_prinicipal.html';
