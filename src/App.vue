@@ -1,7 +1,7 @@
 <script setup>
-    import Login from './components/Login.vue';
+import Movies from './components/Movies.vue';
 </script>
 
 <template>
-    <Login />
+    <Movies />
 </template>

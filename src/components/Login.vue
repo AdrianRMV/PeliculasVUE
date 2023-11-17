@@ -11,7 +11,10 @@ export default {
             var data = new FormData();
             data.append('username', `${this.username_login}`);
             data.append('password', `${this.password_login}`);
-            data.append('request_token', '');
+            data.append(
+                'request_token',
+                '1531f1a558c8357ce8990cf887ff196e8f5402ec'
+            );
 
             const _this = this;
 
